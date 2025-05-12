@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-const usePosts = () => {
+const usePosts = (filter = {}, sort = "desc") => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -9,7 +9,8 @@ const usePosts = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/blog/v1/posts/");
+        const queryParams = new URLSearchParams({ ...filter, sort }).toString();
+        const response = await axios.get(`http://localhost:3000/blog/v1/posts?${queryParams}`);
         setPosts(response.data);
       } catch (err) {
         console.error("Error al obtener las publicaciones:", err);
@@ -19,7 +20,7 @@ const usePosts = () => {
       }
     };
     fetchPosts();
-  }, []);
+  }, [filter, sort]);
 
   return { posts, loading, error };
 };

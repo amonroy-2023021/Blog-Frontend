@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import PostList from "./components/usePost";
-import PostDetail from "./components/usePostDetail";
+import PostList from "./components/Post";
+import PostDetail from "./components/PostDetail";
 
 const App = () => {
   return (
@@ -8,7 +8,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<PostList />} />
         <Route path="/posts/:postId" element={<PostDetail />} />
-        </Routes>
+      </Routes>
     </Router>
   );
 };
